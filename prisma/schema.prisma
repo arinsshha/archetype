@@ -1,0 +1,19 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Local dev uses SQLite (no install needed). For production switch provider to "postgresql"
+// and set DATABASE_URL to your Postgres connection string.
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Result {
+  id        String   @id @default(cuid())
+  sums      String   // JSON array of per-archetype score sums
+  paid      Boolean  @default(false)
+  orderId   String?
+  paymentId String?
+  createdAt DateTime @default(now())
+}
